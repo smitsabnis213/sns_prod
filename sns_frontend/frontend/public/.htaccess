@@ -1,0 +1,13 @@
+Options -MultiViews
+RewriteEngine On
+
+# Leave backend API, AdminJS, and realtime endpoints to their own handler.
+RewriteRule ^(?:api|admin|adminjs|socket\.io)(?:/|$) - [L,NC]
+
+# Keep static assets and existing files/directories unchanged.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Client-side routes (for example /orders/123 and /buddy/orders/123).
+RewriteRule ^ index.html [L]
